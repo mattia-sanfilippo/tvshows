@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 if (__DEV__) {
   import('./reactotronConfig').then(() =>
     console.log('Reactotron Initialized'),
