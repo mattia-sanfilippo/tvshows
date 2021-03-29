@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { Card, Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image } from 'react-native';
@@ -5,14 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../shared/store/configureStore';
 import { fetchShows } from '../home.actions';
 import { TVShow } from '../reducer/home.reducer';
-
-const cardStyle = {
-  flex: 1,
-  flexDirection: 'column',
-  margin: 10,
-  heigth: 350,
-  alignItems: 'center',
-};
+import { homeStyles } from './styles';
 
 const renderIcon = (props: any) => <Icon {...props} name="search-outline" />;
 
@@ -24,23 +18,21 @@ export const Home = () => {
   const [valueSearch, setValueSearch] = useState('');
 
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   useEffect(() => {
-    dispatch(fetchShows(valueSearch));
+    if (valueSearch.length > 2) {
+      dispatch(fetchShows(valueSearch));
+    }
   }, [dispatch, valueSearch]);
 
   const renderContent = () => {
     if (loading) {
       return (
-        <Layout
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-          }}>
+        <Layout style={homeStyles.center}>
           <Image
             source={require('../../assets/icons/search.png')}
-            style={{ height: 200, width: 200 }}
+            style={homeStyles.image}
           />
           <Text category="h5">
             Type something in the box above in order to find your favorite TV
@@ -51,15 +43,10 @@ export const Home = () => {
     }
     if (failure) {
       return (
-        <Layout
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-          }}>
+        <Layout style={homeStyles.center}>
           <Image
             source={require('../../assets/icons/cancel.png')}
-            style={{ height: 200, width: 200 }}
+            style={homeStyles.image}
           />
           <Text category="h5">An error occured. Please try again!</Text>
         </Layout>
@@ -72,16 +59,21 @@ export const Home = () => {
           renderItem={renderItem}
           keyExtractor={item => item.show.id}
           numColumns={2}
+          style={{ marginBottom: 48 }}
         />
       </>
     );
   };
 
+  const onPressMovie = (tvShow: TVShow) => {
+    navigation.navigate('TVShowDetails', { tvShow });
+  };
+
   const renderItem = ({ item }: { item: TVShow }) => (
-    <Card style={cardStyle as any}>
+    <Card style={homeStyles.card} onPress={() => onPressMovie(item)}>
       <Image
         source={{ uri: item.show.image?.medium }}
-        style={{ height: 200, width: 125 }}
+        style={homeStyles.image}
       />
       <Text category="h6">{item.show.name}</Text>
     </Card>

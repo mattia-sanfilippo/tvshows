@@ -26,6 +26,7 @@ export type TVShow = {
       medium: string;
       original: string;
     };
+    summary: string;
   };
 };
 

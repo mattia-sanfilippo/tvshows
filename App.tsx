@@ -7,6 +7,7 @@ import * as eva from '@eva-design/eva';
 import { Provider } from 'react-redux';
 import { store } from './src/shared/store/configureStore';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { TVShowDetails } from './src/home/views/TVShowDetails';
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -18,7 +19,12 @@ const App = () => {
         <Provider store={store}>
           <NavigationContainer>
             <Stack.Navigator>
-              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ title: 'TV Shows' }}
+              />
+              <Stack.Screen name="TVShowDetails" component={TVShowDetails} />
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>
