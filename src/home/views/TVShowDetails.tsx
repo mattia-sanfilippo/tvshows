@@ -21,7 +21,7 @@ export const TVShowDetails = ({
     <ScrollView>
       <TVShowCover
         title={tvShow.show.name}
-        image={tvShow.show.image.original}
+        image={tvShow.show.image?.original}
         premieredDate={tvShow.show.premiered}
       />
       <View style={tvShowDetailsStyles.content}>
