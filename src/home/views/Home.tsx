@@ -11,6 +11,11 @@ import { homeStyles } from './styles';
 
 const renderIcon = (props: any) => <Icon {...props} name="search-outline" />;
 
+const ERROR_MESSAGE = 'An error occurred. Please try again!';
+const LOADING_MESSAGE =
+  'Type something in the box above in order to find your favorite TV shows!';
+const SEARCH_PLACEHOLDER = 'Search for a movie...';
+
 export const Home = () => {
   const { shows, loading, failure } = useSelector(
     (state: RootState) => state.home,
@@ -37,10 +42,7 @@ export const Home = () => {
             source={require('../../assets/icons/search.png')}
             style={homeStyles.image}
           />
-          <Text category="h5">
-            Type something in the box above in order to find your favorite TV
-            shows!
-          </Text>
+          <Text category="h5">{LOADING_MESSAGE}</Text>
         </Layout>
       );
     }
@@ -51,7 +53,7 @@ export const Home = () => {
             source={require('../../assets/icons/cancel.png')}
             style={homeStyles.image}
           />
-          <Text category="h5">An error occurred. Please try again!</Text>
+          <Text category="h5">{ERROR_MESSAGE}</Text>
         </Layout>
       );
     }
@@ -82,7 +84,7 @@ export const Home = () => {
     <Layout>
       <Layout style={{ marginHorizontal: 5 }}>
         <Input
-          placeholder="Search for a movie..."
+          placeholder={SEARCH_PLACEHOLDER}
           value={valueSearch}
           onChangeText={value => setValueSearch(value)}
           accessoryRight={renderIcon}
