@@ -51,7 +51,7 @@ export const Home = () => {
             source={require('../../assets/icons/cancel.png')}
             style={homeStyles.image}
           />
-          <Text category="h5">An error occured. Please try again!</Text>
+          <Text category="h5">An error occurred. Please try again!</Text>
         </Layout>
       );
     }
