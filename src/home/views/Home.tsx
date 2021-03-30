@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../shared/store/configureStore';
-import { fetchShows } from '../home.actions';
+import { fetchShows, searchShows } from '../home.actions';
 import { TVShow } from '../reducer/home.reducer';
 import { homeStyles } from './styles';
 
@@ -22,7 +22,9 @@ export const Home = () => {
 
   useEffect(() => {
     if (valueSearch.length > 2) {
-      dispatch(fetchShows(valueSearch));
+      dispatch(searchShows(valueSearch));
+    } else {
+      dispatch(fetchShows());
     }
   }, [dispatch, valueSearch]);
 
@@ -53,15 +55,13 @@ export const Home = () => {
       );
     }
     return (
-      <>
-        <FlatList
-          data={shows}
-          renderItem={renderItem}
-          keyExtractor={item => item.show.id}
-          numColumns={2}
-          style={{ marginBottom: 48 }}
-        />
-      </>
+      <FlatList
+        data={shows}
+        renderItem={renderItem}
+        keyExtractor={item => item.show.id}
+        numColumns={2}
+        style={{ marginBottom: 48 }}
+      />
     );
   };
 
