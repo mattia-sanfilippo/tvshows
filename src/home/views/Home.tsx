@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { Card, Icon, Input, Layout, Text } from '@ui-kitten/components';
+import { Icon, Input, Layout, Text } from '@ui-kitten/components';
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { TVShowCard } from '../../components/TVShowCard';
 import { RootState } from '../../shared/store/configureStore';
 import { fetchShows, searchShows } from '../home.actions';
 import { TVShow } from '../reducer/home.reducer';
@@ -70,13 +71,11 @@ export const Home = () => {
   };
 
   const renderItem = ({ item }: { item: TVShow }) => (
-    <Card style={homeStyles.card} onPress={() => onPressMovie(item)}>
-      <Image
-        source={{ uri: item.show.image?.medium }}
-        style={homeStyles.image}
-      />
-      <Text category="h6">{item.show.name}</Text>
-    </Card>
+    <TVShowCard
+      title={item.show.name}
+      image={item.show.image?.medium}
+      onPress={() => onPressMovie(item)}
+    />
   );
 
   return (
